@@ -1,0 +1,323 @@
+int openPosition = ((candle.getOpen() - candle.getLow()) / (candle.getHigh() - candle.getLow())) * (plotHight - plotBase) + plotBase;
+    int closePosition = ((candle.getClose() - candle.getLow()) / (candle.getHigh() - candle.getLow())) * (plotHight - plotBase) + plotBase;
+    int highPosition = (plotHight / (candle.getHigh() - candle.getLow())) * candle.getHigh();
+    int lowPosition = (plotHight / (candle.getHigh() - candle.getLow())) * candle.getLow();
+    
+
+    // int opening = candle.getOpen() * 7 / 140; // _______________
+    // int highing = candle.getHigh() * 7 / 140; // | at 11 till close
+    // int lowhing = candle.getLow() * 7 / 140; // | at 11 till close
+    // int closing = candle.getClose() * 7 / 140;
+
+
+    // openPosition =  openPosition % 7;
+    // closePosition =  closePosition % 7;
+
+    std::cout << openPosition << std::endl;
+    std::cout << closePosition << std::endl;
+
+    for (int i = 0; i <= 7; ++i) {
+        // 7 for 140 price 
+        std::cout << "|" ;
+
+        while (i != closePosition && i != openPosition && i < 8 && (i < openPosition || i > closePosition))
+        {
+            
+            std::string spaces(plotWidth / 2, ' ');
+            std::cout << spaces << "|" << std::endl;
+            std::cout << "|" ;
+            ++i;
+        }
+        while (i > openPosition && i < closePosition)
+        {
+            std::string spaces(20, ' ');
+            std::cout << spaces << "|" << std::endl;
+            std::cout << spaces  << "|" << std::endl;
+            std::cout << "|" ;
+            ++i;
+        }
+        
+        std::cout << std::endl << "|" ;
+        if (i == closePosition || i == openPosition) {
+            std::string spaces(2, ' ');
+            std::cout << spaces <<"_________________" ;
+        }
+        
+        
+
+        std::cout << std::endl;
+
+    }
+
+   
+    std::cout << "| ";
+    std::cout << "_____________________" << std::endl;
+
+    std::cout << std::endl;
+
+
+======================================================================================
+
+
+        float top = candle.getOpen() < candle.getHigh() ? candle.getHigh() : candle.getOpen();
+        float bottom = candle.getOpen() > candle.getLow() ? candle.getLow() : candle.getOpen();
+
+        // Calculate the width and height of the candle.
+        int candleWidth = plotWidth / 4;
+        int candleHeight = plotHight / (top - bottom);
+
+        
+        // Print the open and close prices.
+        std::cout << candleWidth << " " << candleHeight << std::endl;
+
+        std::string box = Box(candleWidth, candleHeight);
+
+        std::string spaces(btw_spaces, ' ');
+
+        std::cout << box << spaces ;
+
+=================
+    std::string body = "";
+
+    for (int i = 0; i < candleWidth; i++) {
+        if (candle.getOpen() < candle.getClose()) {
+            body += "-";
+        }
+        else {
+            body += " ";
+        }
+    }
+
+    // Print the wicks.
+    std::string wick = "";
+    for (int i = 0; i < candleHeight; i++) {
+        if (candle.getOpen() < bottom) {
+            wick += "|";
+        }
+        else {
+            wick += " ";
+        }
+    }
+
+    // Print the candle.
+    std::cout << body << wick << std::endl;
+
+
+
+    const int plotWidth = 80; 
+    const int plotHight = 1.0;
+    const int plotBase = 0;
+
+    float top = candle.getOpen() < candle.getHigh() ? candle.getHigh() : candle.getOpen();
+    float bottom = candle.getOpen() > candle.getLow() ? candle.getLow() : candle.getOpen();
+
+    // Calculate the width and height of the candle.
+    int candleWidth = plotWidth / 4;
+    int candleHeight = plotHight / (top - bottom);
+
+    // Print the open and close prices.
+    std::cout << top << " " << bottom << std::endl;
+
+   
+    
+    // create box
+
+    std::string spaces(candleWidth - 1, ' ');
+    std::string mid((candleWidth - 1)/2 , ' ');
+    std::cout << "|" << spaces;
+
+    for (int i = 0; i < candleWidth; i++)
+    {
+        std::cout << "-";
+    }
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < candleHeight / 4; i++)
+    {
+        std::cout << "|" << spaces;
+        std::string spaces(candleWidth - 1, ' ');
+        std::cout << "#" << mid << "|" << mid << "#" << std::endl;
+    }
+
+    std::cout << "|" << spaces << mid << "|" << std::endl << spaces;
+
+    // closing
+    for (int i = 0; i < candleWidth; i++)
+    {
+        std::cout << "-";
+    }
+    std::cout << std::endl << spaces << candle.getOpen() << " " << candle.getClose() << std::endl;
+
+
+    for (int i=0; i < candleHeight / 8; i++) {
+        std::cout << "|" << spaces << mid << "|" << std::endl;
+    }
+
+
+    for (int i=0; i < plotWidth; i++) {
+        std::cout << "-" ;
+    }
+
+
+===============================================================================
+
+    void MerkelMain::drawCandlestickChart(const std::vector<Candlestick>& data) {
+
+    const int chartWidth = 12;
+    const int chartHeight = 11;
+
+    graph = new std::string *[chartWidth];
+
+    for (int i = 0; i < chartWidth; ++i) {
+        graph[i] = new std::string [chartHeight];
+    }
+
+    graph[0][0] =   {"Time Frame"};
+    graph[0][1] =   {"11:58:05"};
+    graph[0][2] =   {"11:58:10"};
+    graph[0][3] =   {"11:58:05"};
+    graph[0][4] =   {"11:58:00"};
+    graph[0][5] =   {"11:57:55"};
+    graph[0][6] =   {"11:57:50"};
+    graph[0][7] =   {"11:57:45"};
+    graph[0][8] =   {"11:57:40"};
+    graph[0][9] =   {"11:57:35"};
+    graph[0][10] =  {"11:57:30"};
+
+
+    graph[1][0] =   {"0.02526501"};
+    graph[2][0] =   {"0.02526211"};
+    graph[3][0] =   {"0.02494611"};
+    graph[4][0] =   {"0.02483911"};
+    graph[5][0] =   {"0.02483711"};
+    graph[6][0] =   {"0.02483451"};
+    graph[7][0] =   {"0.02483202"};
+    graph[8][0] =   {"0.02483011"};
+    graph[9][0] =   {"0.02482812"};
+    graph[10][0] =   {"0.02482611"};
+    graph[11][0] =   {"Price"};
+
+
+    // Find the highest and lowest values in the data
+        double minValue = data[0].getLow();
+        double maxValue = data[0].getHigh();
+
+        for (const auto &candle: data) {
+            if (candle.getLow() < minValue) {
+                minValue = candle.getLow();
+            }
+            if (candle.getHigh() > maxValue) {
+                maxValue = candle.getHigh();
+            }
+        }
+
+        // Calculate the scaling factors
+        double valueRange = maxValue - minValue;
+        double verticalScale = chartHeight / valueRange;
+        double horizontalScale = chartWidth / static_cast<double>(candleStickAsk.size());
+
+        // Draw the chart
+        for (int y = chartHeight - 1; y >= 1; --y) {
+            for (std::size_t x = 1; x < candleStickAsk.size(); ++x) {
+                double currentValue = candleStickAsk[x].getClose();
+
+                // Check if the current pixel is within the candlestick range
+                if (currentValue >= minValue + (y / verticalScale) &&
+                    currentValue <= minValue + ((y + 1) / verticalScale)) {
+                    graph[x][y] = "||";
+                    //std::cout << "█"; // ASCII block character
+                } else {
+                    std::cout << " ";
+                }
+            }
+            std::cout << std::endl;
+        }
+
+    for (int i = 0; i < chartWidth; ++i) {
+        for (int j = 0; j < chartHeight; ++j) {
+            std::cout<<graph[i][j]<<"  ";
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl<<std::endl;
+}
+
+
+
+
+
+    
+    // create box
+
+    std::string spaces(candleWidth - 1, ' ');
+    std::string mid((candleWidth - 1)/2 , ' ');
+    std::cout << "|" << spaces;
+
+    for (int i = 0; i < candleWidth; i++)
+    {
+        std::cout << "-";
+    }
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < candleHeight / 4; i++)
+    {
+        std::cout << "|" << spaces;
+        std::string spaces(candleWidth - 1, ' ');
+        std::cout << "#" << mid << "|" << mid << "#" << std::endl;
+    }
+
+    std::cout << "|" << spaces << mid << "|" << std::endl << spaces;
+
+    // closing
+    for (int i = 0; i < candleWidth; i++)
+    {
+        std::cout << "-";
+    }
+    std::cout << std::endl << spaces << candle.getOpen() << " " << candle.getClose() << std::endl;
+
+
+    for (int i=0; i < candleHeight / 8; i++) {
+        std::cout << "|" << spaces << mid << "|" << std::endl;
+    }
+
+
+    for (int i=0; i < plotWidth; i++) {
+        std::cout << "-" ;
+    }
+
+https://github.com/TRetraint/Trading_Simulator/tree/master/TradingSimulator
+https://github.com/MRGRAVITY817/candlestick
+
+
+
+    auto graph = new std::string *[candleWidth];
+
+    for (int i = 0; i < candleWidth; ++i) {
+        graph[i] = new std::string [candleHeight];
+    }
+
+        for (int y = candleHeight - 1; y >= 1; --y) {
+            for (auto j = 1; j < candle.size(); ++j) {
+                double currentValue = candle[j].getClose();
+
+                
+                if (currentValue >= bottom + (y / candleHeight) &&
+                    currentValue <= bottom + ((y + 1) / candleHeight)) {
+                    graph[x][y] = "||";
+                    
+                } else {
+                    std::cout << " ";
+                }
+            }
+            std::cout << std::endl;
+        }
+
+    for (int i = 0; i < candleWidth; ++i) {
+        for (int j = 0; j < candleHeight; ++j) {
+            std::cout<<graph[i][j]<<"  ";
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl<<std::endl;
